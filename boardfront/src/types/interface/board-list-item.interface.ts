@@ -1,5 +1,5 @@
 export default interface BoardListItem {
-    boardNubmer: number;
+    boardNumber: number;
     title: string;
     content: string;
     boardTitleImage: string | null;
