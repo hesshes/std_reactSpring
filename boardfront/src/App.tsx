@@ -6,6 +6,7 @@ import Top3Item from "components/Top3Item";
 import { commentListMock, favorieListMock, top3BoardListMock } from "mocks";
 import CommentItem from "components/CommentItem";
 import FavoriteItem from "components/FavoriteItem";
+import InputBox from "components/InputBox";
 
 function App() {
     return (
@@ -36,11 +37,12 @@ function App() {
                     <CommentItem CommentListItem={commentListItem} />
                 ))}
             </div> */}
-            <div style={{ display: "flex", columnGap: "30px", rowGap: "20px" }}>
+            {/* <div style={{ display: "flex", columnGap: "30px", rowGap: "20px" }}>
                 {favorieListMock.map((favorieListItem) => (
                     <FavoriteItem favoriteListItem={favorieListItem} />
                 ))}
-            </div>
+            </div> */}
+            <InputBox/>
         </>
     );
 }
