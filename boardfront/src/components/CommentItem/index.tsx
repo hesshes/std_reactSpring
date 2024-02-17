@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import { CommentListItem } from "types/interface";
+import defaultProfileImage from "assets/images/suk.png";
 
 interface Props {
     CommentListItem: CommentListItem;
@@ -17,7 +18,13 @@ export default function CommentItem({ CommentListItem }: Props) {
                 <div className="comment-list-item-profile-box">
                     <div
                         className="comment-list-item-profile-image"
-                        style={{ backgroundImage: `url()` }}
+                        style={{
+                            backgroundImage: `url(${
+                                profileImage != null
+                                    ? profileImage
+                                    : defaultProfileImage
+                            })`,
+                        }}
                     ></div>
                 </div>
                 <div className="comment-list-item-nickname">{nickname}</div>
