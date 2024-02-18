@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, forwardRef } from "react";
+import {
+    ChangeEvent,
+    Dispatch,
+    KeyboardEvent,
+    SetStateAction,
+    forwardRef,
+} from "react";
 import "./style.css";
 
 // interface : Input Box Component Properties
@@ -11,21 +17,30 @@ interface Props {
     error: boolean;
 
     icon?: string;
-    onButtonClick?: () => void;
     message?: string;
+
+    onButtonClick?: () => void;
+    onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 // component : Input Box
 const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
     // state : properties //
     const { label, type, placeholder, value, error } = props;
-    const { icon, message, onButtonClick } = props;
+    const { icon, message, onButtonClick, onKeyDown } = props;
     const { setValue } = props;
 
     // event handler //
+    // Input Value Change Event
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         //const value = event.target.value;
         const { value } = event.target;
         setValue(value);
+    };
+
+    // Input KeyDown Event
+    const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (!onKeyDown) return;
+        onKeyDown(event);
     };
     return (
         <div className="inputbox">
@@ -42,6 +57,7 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
                     placeholder={placeholder}
                     value={value}
                     onChange={onChangeHandler}
+                    onKeyDown={onKeyDownHandler}
                 />
                 {onButtonClick !== undefined && (
                     <div className="icon-button">
