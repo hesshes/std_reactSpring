@@ -8,5 +8,10 @@ import com.hesshes.boardback.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
-    
+    boolean existsByEmail(String email);
+
+    boolean existByNickname(String nickname);
+
+    boolean existByTelNumber(String telNumber);
+
 }
