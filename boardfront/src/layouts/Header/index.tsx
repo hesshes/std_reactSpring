@@ -18,7 +18,7 @@ export default function Header() {
     const [cookies, setCookie] = useCookies();
 
     // state : 로그인 상태 //
-    const [isLogin, setLogin] = useState<boolean>(true);
+    const [isLogin, setLogin] = useState<boolean>(false);
 
     // state : 페이지별 상태 //
     const [isAuthPage, setAuthPage] = useState<boolean>(false);
