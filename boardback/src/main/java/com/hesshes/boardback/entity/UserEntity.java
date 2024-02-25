@@ -34,6 +34,7 @@ public class UserEntity {
         this.telNumber = dto.getTelNumber();
         this.address = dto.getAddress();
         this.addressDetail = dto.getAddressDetail();
-        this.agreedPersonal = dto.g
+        this.agreedPersonal = dto.isAgreedPersonal();
+
     }
 }

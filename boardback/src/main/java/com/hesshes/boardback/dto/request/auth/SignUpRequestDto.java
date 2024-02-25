@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 public class SignUpRequestDto {
 
@@ -28,7 +28,7 @@ public class SignUpRequestDto {
     private String nickname;
 
     @NotBlank
-    @Pattern(regexp = "^[0=9]{11,13}$")
+    @Pattern(regexp = "^[0-9]{11,13}$")
     private String telNumber;
 
     @NotBlank
