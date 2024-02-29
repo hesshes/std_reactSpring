@@ -60,7 +60,7 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
                     onKeyDown={onKeyDownHandler}
                 />
                 {onButtonClick !== undefined && (
-                    <div className="icon-button">
+                    <div className="icon-button" onClick={onButtonClick}>
                         {icon !== undefined && (
                             <div className={`icon ${icon}`}></div>
                         )}
