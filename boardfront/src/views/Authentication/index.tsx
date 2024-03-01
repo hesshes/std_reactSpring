@@ -1,6 +1,10 @@
 import React, { KeyboardEvent, useRef, useState } from "react";
 import "./style.css";
 import InputBox from "components/InputBox";
+import { SignInRequestDto } from "apis/request/auth";
+import { SignInRequest } from "apis";
+import { SignInResponseDto } from "apis/response/auth";
+import { ResponseDto } from "apis/response";
 
 // Componenet : 인증 화면 컴포넌트 //
 export default function Authentication() {
@@ -22,13 +26,37 @@ export default function Authentication() {
         const [password, setPassword] = useState<string>("");
 
         // state : 비밀번호 type 상태 //
-        const [passwordType, setPasswordType] = useState<"text" | "password">("password");
+        const [passwordType, setPasswordType] = useState<"text" | "password">(
+            "password"
+        );
 
         // state : 패스워드 버튼 아이콘 //
-        const [passwordButtonIcon, setPasswordButtonIcon] = useState<"eye-light-off-icon" | "eye-light-on-icon">("eye-light-off-icon");
+        const [passwordButtonIcon, setPasswordButtonIcon] = useState<
+            "eye-light-off-icon" | "eye-light-on-icon"
+        >("eye-light-off-icon");
 
         // state : 에러 상태 //
         const [error, setError] = useState<boolean>(false);
+
+        // function: sign in response 처리 함수 //
+        const signInResponse = (
+            responseBody: SignInResponseDto | ResponseDto | null
+        ) => {
+            if (!responseBody) {
+                alert("네트워크 이상");
+                return;
+            }
+            const { code } = responseBody;
+            if (code === "VF") alert("모두 입력하세요.");
+            if (code === "SF" || code === "VF") setError(true);
+            if ( code !== "SU") return;
+        };
+
+        // event handler : 로그인 버튼 클릭 이벤트 처리 //
+        const onSignInButtonClickHandler = () => {
+            const requestBody: SignInRequestDto = { email, password };
+            SignInRequest(requestBody).then();
+        };
 
         // event handler : //
         const onSignUpLinkClickHandler = () => {
@@ -45,17 +73,19 @@ export default function Authentication() {
             }
         };
 
-        // event handler : 로그인 버튼 클릭 이벤트 처리 //
-        const onSignInButtonClickHandler = () => {};
         // event handler : 이메일 input box key down 이벤트 //
-        const onEmailKeyDownHanlder = (event: KeyboardEvent<HTMLInputElement>) => {
+        const onEmailKeyDownHanlder = (
+            event: KeyboardEvent<HTMLInputElement>
+        ) => {
             if (event.key !== "Enter") return;
             if (!passwordRef.current) return;
             passwordRef.current.focus();
         };
 
         // event handler : 패스워드 input box key down 이벤트 //
-        const onPasswordKeyDownHanlder = (event: KeyboardEvent<HTMLInputElement>) => {
+        const onPasswordKeyDownHanlder = (
+            event: KeyboardEvent<HTMLInputElement>
+        ) => {
             if (event.key !== "Enter") return;
             onSignInButtonClickHandler();
         };
@@ -91,18 +121,31 @@ export default function Authentication() {
                         />
                     </div>
                     <div className="auth-card-bottom">
-                        <div className="auth-sign-in-error-box">
-                            <div className="auth-sign-in-error-msg">
-                                {"이메일 주소 또는 비밀번호를 잘못 입력했습니다.\n 입력하신 내용을 다시 확인해주세요."}
+                        {error && (
+                            <div className="auth-sign-in-error-box">
+                                <div className="auth-sign-in-error-msg">
+                                    {
+                                        "이메일 주소 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요."
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <div className="black-large-full-button" onClick={onSignInButtonClickHandler}>
+                        )}
+
+                        <div
+                            className="black-large-full-button"
+                            onClick={onSignInButtonClickHandler}
+                        >
                             {"로그인"}
                         </div>
                         <div className="auth-description-box">
                             <div className="auth-description">
                                 {"신규 사용자이신가요? "}
-                                <span className="auth-description-link" onClick={onSignUpLinkClickHandler}>{"회원가입"}</span>
+                                <span
+                                    className="auth-description-link"
+                                    onClick={onSignUpLinkClickHandler}
+                                >
+                                    {"회원가입"}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -124,8 +167,12 @@ export default function Authentication() {
                     <div className="auth-jumbotron-contents">
                         <div className="auth-jumbotron-logo-icon"></div>
                         <div className="auth-jumbotron-text-box">
-                            <div className="auth-jumbotron-text">{"환영합니다."}</div>
-                            <div className="auth-jumbotron-text">{"HESSHES BOARD 입니다."}</div>
+                            <div className="auth-jumbotron-text">
+                                {"환영합니다."}
+                            </div>
+                            <div className="auth-jumbotron-text">
+                                {"HESSHES BOARD 입니다."}
+                            </div>
                         </div>
                     </div>
                 </div>
