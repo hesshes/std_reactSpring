@@ -46,16 +46,19 @@ export default function Authentication() {
                 alert("네트워크 이상");
                 return;
             }
+
             const { code } = responseBody;
-            if (code === "VF") alert("모두 입력하세요.");
-            if (code === "SF" || code === "VF") setError(true);
-            if ( code !== "SU") return;
+            if (code === "DBE") alert("DB 오류입니다.");
+            if (code === "SF" || code === "VF") setError(ture);
+            if (code !== "SU") return;
+
+            const { token } = responseBody as SignInResponseDto;
         };
 
         // event handler : 로그인 버튼 클릭 이벤트 처리 //
         const onSignInButtonClickHandler = () => {
             const requestBody: SignInRequestDto = { email, password };
-            SignInRequest(requestBody).then();
+            SignInRequest(requestBody).then(signInResponse);
         };
 
         // event handler : //

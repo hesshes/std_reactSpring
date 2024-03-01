@@ -1,23 +1,23 @@
 enum ResponseCode {
     // Http Status 200
-    SUCCESS = "Success.",
+    SUCCESS = "SU",
 
     // Http Status 400
-    VALIDATION_FAILED = "Validation failed.",
-    DUPLICATE_EMAIL = "Duplicate email.",
-    DUPLICATE_NICKNAME = "Duplicate nickname.",
-    DUPLICATE_TEL_NUMBER = "Duplicate tel number.",
-    NOT_EXISTED_USER = "This user does not exist.",
-    NOT_EXISTED_BOARD = "This board does not exist.",
+    VALIDATION_FAILED = "VF",
+    DUPLICATE_EMAIL = "DE",
+    DUPLICATE_NICKNAME = "DN",
+    DUPLICATE_TEL_NUMBER = "DT",
+    NOT_EXISTED_USER = "NU",
+    NOT_EXISTED_BOARD = "NB",
 
     // Http Status 401
-    SIGN_IN_FIAL = "Login information mismatch.",
-    AUTHORIZATION_FAIL = "Authorization Failed.",
+    SIGN_IN_FIAL = "SF",
+    AUTHORIZATION_FAIL = "AF",
     // Http Status 403
-    NO_PERMISSION = "Do not have permission.",
+    NO_PERMISSION = "NP",
 
     // Http Status 500
-    DATABASE_ERROR = "Database error.",
+    DATABASE_ERROR = "DBE",
 }
 
 export default ResponseCode;
