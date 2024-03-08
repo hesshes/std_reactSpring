@@ -119,6 +119,7 @@ export default function Header() {
         // event handler : 로그아웃 버튼 클릭 이벤트 처리 함수 //
         const onSignOutButtonFlickHandler = () => {
             resetLoginUser();
+            setCookie("accessToken", "", { path: MAIN_PATH(), expires: new Date() });
             navigate(MAIN_PATH());
         };
         // event handler : 로그인 버튼 클릭 이벤트 처리 함수 //
@@ -182,6 +183,9 @@ export default function Header() {
         setUserPage(isUserPage);
     }, [pathname]);
 
+    useEffect(() => {
+        setLogin(loginUser !== null);
+    }, [loginUser]);
     // render : 헤더 레이아웃 //
     return (
         <div id="header">
