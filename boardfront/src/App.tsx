@@ -31,6 +31,7 @@ import { User } from "types/interface";
 function App() {
     // state : 로그인 유저 전역 상태 //
     const { setLoginUser, resetLoginUser } = useLoginUserStore();
+
     // state : 쿠키 상태 //
     const [cookies, setCookies] = useCookies();
 
@@ -49,13 +50,13 @@ function App() {
     };
 
     // effect : accessToken cookie 값이 변경될 때마다 실행할 함수 //
-    /*useEffect(() => {
+    useEffect(() => {
         if (!cookies.accessToken) {
             resetLoginUser();
             return;
         }
         getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
-    }, [cookies.accessToken]); */
+    }, [cookies.accessToken]); 
     return (
         <>
             <Routes>

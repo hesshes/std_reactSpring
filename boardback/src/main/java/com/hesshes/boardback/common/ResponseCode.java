@@ -18,7 +18,7 @@ public interface ResponseCode {
     String NOT_EXISTED_BOARD = "NR";
 
     // Http Status 401
-    String SIGN_IN_FIAL = "SF";
+    String SIGN_IN_FAIL = "SF";
     String AUTHORIZATION_FAIL = "AF";
 
     // Http Status 403

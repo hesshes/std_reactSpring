@@ -59,4 +59,5 @@ export const getSignInUserRequest = async (accessToken: string) => {
             const reponseBody: ResponseDto = error.reponse.data;
             return reponseBody;
         });
+        return result;
 };

@@ -4,8 +4,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH } from "constant";
 import { useCookies } from "react-cookie";
 import { useBoardStore, useLoginUserStore } from "stores";
-import BoardDetail from "views/Board/Detail";
-import path from "path";
 
 // Component : 헤더 레이아웃 //
 export default function Header() {
@@ -166,6 +164,7 @@ export default function Header() {
         return <div className="disable-button">{"업로드 불가"}</div>;
     };
 
+    // effect : path가 변경될 때 마다 실행되는 함수 //
     useEffect(() => {
         const isAuthPage = pathname.startsWith(AUTH_PATH());
         setAuthPage(isAuthPage);
@@ -183,9 +182,11 @@ export default function Header() {
         setUserPage(isUserPage);
     }, [pathname]);
 
+    // effect : login이 변경될 때 마다 실행되는 함수 //
     useEffect(() => {
         setLogin(loginUser !== null);
     }, [loginUser]);
+
     // render : 헤더 레이아웃 //
     return (
         <div id="header">
