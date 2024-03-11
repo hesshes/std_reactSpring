@@ -7,7 +7,7 @@ import { GetSignInUserResponseDto } from "./response/user";
 const DOMAIN = "http://localhost:4000";
 
 const authorization = (accessToken: string) => {
-    return { headers: { Authorization: `Bearer $(access)` } };
+    return { headers: { Authorization: `Bearer ${accessToken}` } };
 };
 const API_DOMAIN = `${DOMAIN}/api/v1`;
 
@@ -59,5 +59,5 @@ export const getSignInUserRequest = async (accessToken: string) => {
             const reponseBody: ResponseDto = error.reponse.data;
             return reponseBody;
         });
-        return result;
+    return result;
 };

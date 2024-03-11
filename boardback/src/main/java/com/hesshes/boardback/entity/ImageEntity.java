@@ -22,4 +22,9 @@ public class ImageEntity {
     private int sequence;
     private int boardNumber;
     private String imageUrl;
+
+    public ImageEntity(int boardNumber, String image) {
+        this.boardNumber = boardNumber;
+        this.imageUrl = image;
+    }
 }

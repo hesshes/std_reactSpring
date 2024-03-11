@@ -31,6 +31,7 @@ import { User } from "types/interface";
 function App() {
     // state : 로그인 유저 전역 상태 //
     const { setLoginUser, resetLoginUser } = useLoginUserStore();
+
     // state : 쿠키 상태 //
     const [cookies, setCookies] = useCookies();
 
@@ -55,7 +56,11 @@ function App() {
             return;
         }
         getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
+<<<<<<< HEAD
     }, [cookies.accessToken]);
+=======
+    }, [cookies.accessToken]); 
+>>>>>>> 567c371550d78f91e78be1632581bce552c35940
     return (
         <>
             <Routes>
