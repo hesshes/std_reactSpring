@@ -49,13 +49,13 @@ function App() {
     };
 
     // effect : accessToken cookie 값이 변경될 때마다 실행할 함수 //
-    /*useEffect(() => {
+    useEffect(() => {
         if (!cookies.accessToken) {
             resetLoginUser();
             return;
         }
         getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
-    }, [cookies.accessToken]); */
+    }, [cookies.accessToken]);
     return (
         <>
             <Routes>
