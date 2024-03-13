@@ -6,7 +6,7 @@ import Authentication from "views/Authentication";
 import Search from "views/Search";
 import UserP from "views/User";
 import BoardDetail from "views/Board/Detail";
-import BoardWrite from "views/Board/Write";
+import BoardWrite from "views/Board/Write/write";
 import BoardUpdate from "views/Board/Update";
 import Container from "layouts/Container";
 import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH } from "constant";
@@ -56,11 +56,8 @@ function App() {
             return;
         }
         getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
-<<<<<<< HEAD
     }, [cookies.accessToken]);
-=======
-    }, [cookies.accessToken]); 
->>>>>>> 567c371550d78f91e78be1632581bce552c35940
+
     return (
         <>
             <Routes>
