@@ -38,7 +38,7 @@ public class BoardEntity {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String wrtDttm = simpleDateFormat.format(now);
-        
+
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.wrtDttm = wrtDttm;
@@ -47,6 +47,10 @@ public class BoardEntity {
         this.viewCnt = 0;
         this.writerEmail = email;
 
+    }
+
+    public void increaseViewCount() {
+        this.viewCnt++;
     }
 
 }
