@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
 import com.hesshes.boardback.dto.response.ResponseDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
+import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.entity.BoardEntity;
+import com.hesshes.boardback.entity.FavoriteEntity;
 import com.hesshes.boardback.entity.ImageEntity;
 import com.hesshes.boardback.repository.BoardRepository;
+import com.hesshes.boardback.repository.FavoriteRepository;
 import com.hesshes.boardback.repository.ImageRepository;
 import com.hesshes.boardback.repository.UserRepository;
 import com.hesshes.boardback.repository.resultSet.GetBoardResultSet;
+import com.hesshes.boardback.repository.resultSet.GetFavoriteListResultSet;
 import com.hesshes.boardback.service.BoardService;
-
+import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,6 +31,7 @@ public class BoardServiceImplement implements BoardService {
     private final BoardRepository boardRepository;
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Override
     public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -84,6 +89,59 @@ public class BoardServiceImplement implements BoardService {
         }
 
         return PostBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email) {
+
+        try {
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if (!existedUser)
+                return PutFavoriteResponseDto.noExistUser();
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null)
+                return PutFavoriteResponseDto.noExistBoard();
+
+            FavoriteEntity favoriteEntity = favoriteRepository.findByBoardNumberAndUserEmail(boardNumber, email);
+            if (favoriteEntity == null) {
+                favoriteEntity = new FavoriteEntity(email, boardNumber);
+                favoriteRepository.save(favoriteEntity);
+                boardEntity.increateFavoriteCount();
+            } else {
+                favoriteRepository.delete(favoriteEntity);
+                boardEntity.decreaseFavoriteCount();
+            }
+
+            boardRepository.save(boardEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return PutFavoriteResponseDto.success();
+
+    }
+
+    @Override
+    public ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber) {
+        List<GetFavoriteListResultSet> resultSets = new ArrayList<>();
+
+        try {
+
+            boolean existedBoard = boardRepository.existsByBoardNumber(boardNumber);
+            if (!existedBoard)
+                return GetFavoriteListResponseDto.noExistBoard();
+
+            resultSets = favoriteRepository.getFavoriteList(boardNumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetFavoriteListResponseDto.success(resultSets);
     }
 
 }

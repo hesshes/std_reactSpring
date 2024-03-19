@@ -10,6 +10,9 @@ import com.hesshes.boardback.repository.resultSet.GetBoardResultSet;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
 
+
+    boolean existsByBoardNumber(Integer BoardNumber);
+
     BoardEntity findByBoardNumber(Integer boardNumber);
     
     @Query(value = "SELECT " +
@@ -25,4 +28,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
             "ON B.writer_email = U.email " +
             "WHERE board_number = ?1 ", nativeQuery = true)
     GetBoardResultSet getBoard(Integer boardNumber);
+
+
+    
 }
