@@ -7,14 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
+import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 import com.hesshes.boardback.dto.response.ResponseDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
+import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.entity.BoardEntity;
+import com.hesshes.boardback.entity.CommentEntity;
 import com.hesshes.boardback.entity.FavoriteEntity;
 import com.hesshes.boardback.entity.ImageEntity;
 import com.hesshes.boardback.repository.BoardRepository;
+import com.hesshes.boardback.repository.CommentRepository;
 import com.hesshes.boardback.repository.FavoriteRepository;
 import com.hesshes.boardback.repository.ImageRepository;
 import com.hesshes.boardback.repository.UserRepository;
@@ -31,6 +35,7 @@ public class BoardServiceImplement implements BoardService {
     private final BoardRepository boardRepository;
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     private final FavoriteRepository favoriteRepository;
 
     @Override
@@ -89,6 +94,33 @@ public class BoardServiceImplement implements BoardService {
         }
 
         return PostBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, String email,
+            Integer boardNumber) {
+
+        try {
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null)
+                return PostCommentResponseDto.noExistBoard();
+
+            boolean exsitedUser = userRepository.existsByEmail(email);
+            if (!exsitedUser)
+                return PostCommentResponseDto.noExistUser();
+
+            CommentEntity commentEntity = new CommentEntity(dto, boardNumber, email);
+            commentRepository.save(commentEntity);
+
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return PostCommentResponseDto.success();
     }
 
     @Override
