@@ -1,4 +1,4 @@
-const favorieListMock = [
+const favoriteListMock = [
     {
         email: "email@email.com",
         nickname: "테스트",
@@ -16,4 +16,4 @@ const favorieListMock = [
     },
 ];
 
-export default favorieListMock;
+export default favoriteListMock;
