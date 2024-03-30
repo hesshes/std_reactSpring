@@ -88,7 +88,9 @@ export default function BoardDetail() {
                         </div>
                     </div>
                     <div className="divider"></div>
-                    <div className="board-detail-bottom-comment-pagination-box"></div>
+                    <div className="board-detail-bottom-comment-pagination-box">
+                        
+                    </div>
                     <div className="board-detail-bottom-comment-input-container">
                         <div className="board-detail-bottom-comment-input-container">
                             <textarea className="board-detail-bottom-comment-textarea" placeholder="댓글을 작성해주세요." />

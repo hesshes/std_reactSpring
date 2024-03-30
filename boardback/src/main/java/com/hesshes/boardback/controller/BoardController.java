@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hesshes.boardback.service.BoardService;
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
-import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
-import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,16 +49,7 @@ public class BoardController {
             @AuthenticationPrincipal String email) {
         ResponseEntity<? super PostBoardResponseDto> response = boardService.postBoard(requestBody, email);
         return response;
-    }
 
-    @PostMapping("/{boardNumber}/comment")
-    public ResponseEntity<? super PostCommentResponseDto> postComment(
-            @RequestBody @Valid PostCommentRequestDto requestBody,
-            @PathVariable("boardNumber") Integer boardNumber,
-            @AuthenticationPrincipal String email) {
-        ResponseEntity<? super PostCommentResponseDto> response = boardService.postComment(requestBody, email,
-                boardNumber);
-        return response;
     }
 
     @PutMapping("/{boardNumber}/favorite")
