@@ -1,3 +1,6 @@
+.emphasis {
+    font-weight: bolder;
+}
 .divider {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -174,4 +177,24 @@
 
 .more-icon {
     background-image: url(assets/images/more.png);
+}
+
+.favorite-fill-icon {
+    background-image: url(assets/images/favorite-fill.png);
+}
+
+.favorite-icon {
+    background-image: url(assets/images/favorite-light.png);
+}
+
+.up-light-icon {
+    background-image: url(assets/images/expand-up-light.png);
+}
+
+.down-light-icon {
+    background-image: url(assets/images/expand-down-light.png);
+}
+
+.comment-icon {
+    background-image: url(assets/images/chat-light.png);
 }
