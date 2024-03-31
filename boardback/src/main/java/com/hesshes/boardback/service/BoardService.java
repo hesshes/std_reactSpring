@@ -9,6 +9,7 @@ import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
+import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 
 public interface BoardService {
 
@@ -22,5 +23,7 @@ public interface BoardService {
             Integer boardNumber);
 
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+
+    ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 
 }
