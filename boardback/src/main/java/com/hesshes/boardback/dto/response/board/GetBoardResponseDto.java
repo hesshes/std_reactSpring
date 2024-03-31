@@ -16,6 +16,7 @@ import lombok.Getter;
 
 @Getter
 public class GetBoardResponseDto extends ResponseDto {
+
     private int boardNumber;
     private String title;
     private String content;
@@ -35,7 +36,7 @@ public class GetBoardResponseDto extends ResponseDto {
             boardImageList.add(boardImage);
 
         }
-        
+
         this.boardNumber = resultSet.getBoardNumber();
         this.title = resultSet.getTitle();
         this.content = resultSet.getContent();
