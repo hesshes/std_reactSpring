@@ -109,7 +109,7 @@ export default function BoardDetail() {
             if (code === "NP") alert("권한이 없습니다.");
             if (code === "DBE") alert("데이터베이스 오류 입니다.");
             if (code !== "SU") return;
-            
+
             navigator(MAIN_PATH());
         };
         // event handler : nickname 버튼 클릭 이벤트 처리 //

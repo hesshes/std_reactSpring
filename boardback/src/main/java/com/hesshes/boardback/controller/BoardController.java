@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hesshes.boardback.service.BoardService;
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
+import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
+import com.hesshes.boardback.dto.response.board.DeleteBoardResponseDto;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -44,6 +49,15 @@ public class BoardController {
 
     }
 
+    @GetMapping("/{boardNumber}/comment-list")
+    public ResponseEntity<? super GetCommentListResponseDto> getCommentList(
+            @PathVariable("boardNumber") Integer boardNumber) {
+
+        ResponseEntity<? super GetCommentListResponseDto> response = boardService.getCommentList(boardNumber);
+        return response;
+
+    }
+
     @GetMapping("/{boardNumber}/increase-view-count")
     public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
             @PathVariable("boardNumber") Integer boardNumber) {
@@ -66,6 +80,14 @@ public class BoardController {
     public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(
             @PathVariable("boardNumber") Integer boardNumber, @AuthenticationPrincipal String email) {
         ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(boardNumber, email);
+        return response;
+    }
+
+    @DeleteMapping("/{boardNumber}")
+    public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email) {
+        ResponseEntity<? super DeleteBoardResponseDto> response = boardService.deleteBoard(boardNumber, email);
         return response;
     }
 
