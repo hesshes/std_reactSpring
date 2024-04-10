@@ -246,8 +246,8 @@ export default function BoardDetail() {
             if (code === "DBE") alert("데이터베이스 오류 입니다.");
             if (code !== "SU") return;
 
-            if (!boardNumber) return;
-            getFavoriteListRequest(boardNumber).then(getFavoriteListResponse);
+            const { commentList } = responseBody as GetCommentListResponseDto;
+            setCommentList(commentList);
         };
 
         // function : put Favorite Response 처리 //
@@ -257,6 +257,9 @@ export default function BoardDetail() {
             if (code === "NB") alert("존재하지 않는 게시물입니다.");
             if (code === "DBE") alert("데이터베이스 오류 입니다.");
             if (code !== "SU") return;
+
+            if (!boardNumber) return;
+            getFavoriteListRequest(boardNumber).then(getFavoriteListResponse);
         };
 
         // function : post Comment Response 처리 //

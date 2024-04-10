@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hesshes.boardback.service.BoardService;
+
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
+import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
+
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
-import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
+import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
+import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
 import com.hesshes.boardback.dto.response.board.DeleteBoardResponseDto;
 
@@ -74,6 +78,16 @@ public class BoardController {
         ResponseEntity<? super PostBoardResponseDto> response = boardService.postBoard(requestBody, email);
         return response;
 
+    }
+
+    @PostMapping("/{boardNumber}/comment")
+    public ResponseEntity<? super PostCommentResponseDto> postComment(
+            @RequestBody @Valid PostCommentRequestDto requstBody,
+            @AuthenticationPrincipal String email,
+            @PathVariable("boardNumber") Integer boardNumber) {
+        ResponseEntity<? super PostCommentResponseDto> response = boardService.postComment(requstBody, email,
+                boardNumber);
+        return response;
     }
 
     @PutMapping("/{boardNumber}/favorite")
