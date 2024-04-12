@@ -34,6 +34,7 @@ import {
 import dayjs from "dayjs";
 import { useCookies } from "react-cookie";
 import { PostCommentRequestDto } from "apis/request/board";
+import { usePagination } from "hooks";
 
 // Componenet : 게시물 상세 보기 //
 export default function BoardDetail() {
@@ -157,9 +158,7 @@ export default function BoardDetail() {
                             <div
                                 className="board-detail-writer-profile-image"
                                 style={{
-                                    backgroundImage: `url(${
-                                        board?.writerProfileImage ? board.writerProfileImage : defaultprofileImage
-                                    })`,
+                                    backgroundImage: `url(${board?.writerProfileImage ? board.writerProfileImage : defaultprofileImage})`,
                                 }}
                             ></div>
                             <div className="board-detail-writer-nickname" onClick={onNicknameClickHandler}>
@@ -208,12 +207,19 @@ export default function BoardDetail() {
         // state : 댓글 textarea 참조 상태 //
         const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
+        // state : 페이니제이션 관련 상태 //
+        const { currentPage, currentSection, viewList, viewPageList, totalSection, setCurrentSection, setCurrentPage, setTotalList } =
+            usePagination<CommentListItem>(3); // check set을 나눠서 받으면 안되는 이유는?
+        //const { setCurrentSection, setCurrentPage, setTotalList } = usePagination<CommentListItem>(3);
+
         // state : 댓글 리스트 상태 //
         const [commentList, setCommentList] = useState<CommentListItem[]>([]);
-        // state : 댓글 박스 보기 상태 //
-        const [showComment, setShowComment] = useState<boolean>(false);
         // state : 댓글 상태 보기 상태 //
         const [comment, setComment] = useState<string>("");
+        // state : 댓글 갯수 상태 보기 상태 //
+        const [totalCommentCount, settotalCommentCount] = useState<number>(0);
+        // state : 댓글 박스 보기 상태 //
+        const [showComment, setShowComment] = useState<boolean>(false);
 
         // function : get favorite list response 처리 //
         const getFavoriteListResponse = (responseBody: GetFavoriteListResponseDto | ResponseDto | null) => {
@@ -247,7 +253,8 @@ export default function BoardDetail() {
             if (code !== "SU") return;
 
             const { commentList } = responseBody as GetCommentListResponseDto;
-            setCommentList(commentList);
+            setTotalList(commentList);
+            settotalCommentCount(commentList.length);
         };
 
         // function : put Favorite Response 처리 //
@@ -327,24 +334,16 @@ export default function BoardDetail() {
                         </div>
                         <div className="board-detail-bottom-button-text">{`좋아요 ${favoriteList.length}`}</div>
                         <div className="icon-button" onClick={onShowFavoriteClickHandler}>
-                            {showFavorite ? (
-                                <div className="icon up-light-icon"></div>
-                            ) : (
-                                <div className="icon down-light-icon"></div>
-                            )}
+                            {showFavorite ? <div className="icon up-light-icon"></div> : <div className="icon down-light-icon"></div>}
                         </div>
                     </div>
                     <div className="board-detail-bottom-button-group">
                         <div className="icon-button">
                             <div className="icon comment-icon"></div>
                         </div>
-                        <div className="board-detail-bottom-button-text">{`댓글 ${commentList.length}`}</div>
+                        <div className="board-detail-bottom-button-text">{`댓글 ${totalCommentCount}`}</div>
                         <div className="icon-button" onClick={onShowCommentClickHandler}>
-                            {showComment ? (
-                                <div className="icon up-light-icon"></div>
-                            ) : (
-                                <div className="icon down-light-icon"></div>
-                            )}
+                            {showComment ? <div className="icon up-light-icon"></div> : <div className="icon down-light-icon"></div>}
                         </div>
                     </div>
                 </div>
@@ -368,17 +367,24 @@ export default function BoardDetail() {
                         <div className="board-detail-bottom-comment-container">
                             <div className="board-detail-bottom-comment-title">
                                 {"댓글 "}
-                                <span className="emphasis">{commentList.length}</span>
+                                <span className="emphasis">{totalCommentCount}</span>
                             </div>
                             <div className="board-detail-bottom-comment-list-container">
-                                {commentList.map((item) => (
+                                {viewList.map((item) => (
                                     <CommentItem CommentListItem={item} />
                                 ))}
                             </div>
                         </div>
                         <div className="divider"></div>
                         <div className="board-detail-bottom-comment-pagination-box">
-                            <Pagination />
+                            <Pagination
+                                currentPage={currentPage}
+                                currentSection={currentSection}
+                                setCurrentPage={setCurrentPage}
+                                setCurrentSection={setCurrentSection}
+                                viewPageList={viewPageList}
+                                totalSection={totalSection}
+                            />
                         </div>
                         {loginUser !== null && (
                             <div className="board-detail-bottom-comment-input-box">

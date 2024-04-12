@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hesshes.boardback.service.BoardService;
-
+import com.hesshes.boardback.dto.request.board.PatchBoardRequestDto;
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
 import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 
@@ -21,6 +21,7 @@ import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
+import com.hesshes.boardback.dto.response.board.PatchBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
 import com.hesshes.boardback.dto.response.board.DeleteBoardResponseDto;
 
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -94,6 +96,16 @@ public class BoardController {
     public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(
             @PathVariable("boardNumber") Integer boardNumber, @AuthenticationPrincipal String email) {
         ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(boardNumber, email);
+        return response;
+    }
+
+    @PatchMapping("/{boardNumber}")
+    public ResponseEntity<? super PatchBoardResponseDto> patchBoard(
+            @RequestBody @Valid PatchBoardRequestDto requestBody,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email) {
+        ResponseEntity<? super PatchBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber,
+                email);
         return response;
     }
 

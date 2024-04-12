@@ -2,6 +2,7 @@ package com.hesshes.boardback.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.hesshes.boardback.dto.request.board.PatchBoardRequestDto;
 import com.hesshes.boardback.dto.request.board.PostBoardRequestDto;
 import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 
@@ -12,6 +13,7 @@ import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
 
+import com.hesshes.boardback.dto.response.board.PatchBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PutFavoriteResponseDto;
 import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 import com.hesshes.boardback.dto.response.board.DeleteBoardResponseDto;
@@ -30,6 +32,9 @@ public interface BoardService {
             Integer boardNumber);
 
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+
+    ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber,
+            String email);
 
     ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 
