@@ -15,11 +15,11 @@ export default function BoardItem({ boardListItem }: Props) {
     const { wrtDttm, writerNickname, writerProfileImage } = boardListItem;
 
     // function //
-    //const navigator = useNavigate();
+    //const navigate = useNavigate();
 
     // event handler //
     const onClickHandler = () => {
-        //navigator(boardNumber);
+        //navigate(boardNumber);
     };
 
     // render : Board List Item 컴포넌트 렌더링 //

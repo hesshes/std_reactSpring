@@ -7,7 +7,7 @@ import Search from "views/Search";
 import UserP from "views/User";
 import BoardDetail from "views/Board/Detail";
 import BoardWrite from "views/Board/Write/write";
-import BoardUpdate from "views/Board/Update";
+import BoardUpdate from "views/Board/Update/update";
 import Container from "layouts/Container";
 import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH } from "constant";
 import { useEffect } from "react";

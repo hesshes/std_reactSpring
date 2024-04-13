@@ -20,7 +20,7 @@ export default function Top3Item({ top3ListItem }: Props) {
 
     // event handler //
     const onClickHandler = () => {
-        // navigator(boardNumber);
+        // navigate(boardNumber);
     };
     // render : Top 3 List Item //
     return (

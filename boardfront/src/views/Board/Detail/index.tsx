@@ -48,7 +48,7 @@ export default function BoardDetail() {
     const [cookies, setcookies] = useCookies();
 
     // function : 네비게이트 함수 //
-    const navigator = useNavigate();
+    const navigate = useNavigate();
 
     // function : 게시물 증가 함수 //
     const increaseViewCountResponse = (responseBody: IncreaseViewCountResponseDto | ResponseDto | null) => {
@@ -84,7 +84,7 @@ export default function BoardDetail() {
             if (code === "NB") alert("존재하지 않는 게시물입니다.");
             if (code === "DBE") alert("데이터베이스 오류 입니다.");
             if (code !== "SU") {
-                navigator(MAIN_PATH());
+                navigate(MAIN_PATH());
                 return;
             }
             const board: Board = { ...(responseBody as GetBoardResponseDto) };
@@ -111,12 +111,12 @@ export default function BoardDetail() {
             if (code === "DBE") alert("데이터베이스 오류 입니다.");
             if (code !== "SU") return;
 
-            navigator(MAIN_PATH());
+            navigate(MAIN_PATH());
         };
         // event handler : nickname 버튼 클릭 이벤트 처리 //
         const onNicknameClickHandler = () => {
             if (!board) return;
-            navigator(USER_PATH(board.writerEmail));
+            navigate(USER_PATH(board.writerEmail));
         };
 
         // event handler : more 버튼 클릭 이벤트 처리 //
@@ -129,7 +129,7 @@ export default function BoardDetail() {
             if (!board || !loginUser) return;
             if (loginUser.email !== board.writerEmail) return;
 
-            navigator(BOARD_PATH() + "/" + BOARD_UPDATE_PATH(board.boardNumber));
+            navigate(BOARD_PATH() + "/" + BOARD_UPDATE_PATH(board.boardNumber));
         };
 
         // event handler : 삭제 버튼 클릭 이벤트 처리 //
@@ -143,7 +143,7 @@ export default function BoardDetail() {
         // effect : 게시물 번호 경로 변경시 게시물 변경 처리 //
         useEffect(() => {
             if (!boardNumber) {
-                navigator(MAIN_PATH());
+                navigate(MAIN_PATH());
                 return;
             }
             getBoardRequest(boardNumber).then(getBoardResponse);
