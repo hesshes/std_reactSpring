@@ -14,14 +14,17 @@ import com.hesshes.boardback.dto.response.board.DeleteBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
+import com.hesshes.boardback.dto.response.board.GetLatestBoardListResponseDto;
 import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
 import com.hesshes.boardback.dto.response.board.PatchBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.entity.BoardEntity;
+import com.hesshes.boardback.entity.BoardListViewEntity;
 import com.hesshes.boardback.entity.CommentEntity;
 import com.hesshes.boardback.entity.FavoriteEntity;
 import com.hesshes.boardback.entity.ImageEntity;
+import com.hesshes.boardback.repository.BoardListViewRepository;
 import com.hesshes.boardback.repository.BoardRepository;
 import com.hesshes.boardback.repository.CommentRepository;
 import com.hesshes.boardback.repository.FavoriteRepository;
@@ -43,6 +46,7 @@ public class BoardServiceImplement implements BoardService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final FavoriteRepository favoriteRepository;
+    private final BoardListViewRepository boardListViewRepository;
 
     @Override
     public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -195,6 +199,22 @@ public class BoardServiceImplement implements BoardService {
         }
 
         return GetCommentListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
+
+        List<BoardListViewEntity> boardListViewEntites = new ArrayList<>();
+
+        try {
+            boardListViewEntites = boardListViewRepository.findByOrderByWrtDttmDesc();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetLatestBoardListResponseDto.success(boardListViewEntites);
+
     }
 
     @Override

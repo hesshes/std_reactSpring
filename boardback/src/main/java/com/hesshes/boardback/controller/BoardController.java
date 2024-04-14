@@ -18,6 +18,8 @@ import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
+import com.hesshes.boardback.dto.response.board.GetLatestBoardListResponseDto;
+
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.PostCommentResponseDto;
 import com.hesshes.boardback.dto.response.board.IncreaseViewCountResponseDto;
@@ -69,6 +71,14 @@ public class BoardController {
             @PathVariable("boardNumber") Integer boardNumber) {
 
         ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+        return response;
+
+    }
+
+    @GetMapping("/latest-list")
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
+
+        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
         return response;
 
     }
