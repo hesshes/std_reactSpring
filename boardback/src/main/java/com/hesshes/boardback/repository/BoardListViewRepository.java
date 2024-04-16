@@ -11,4 +11,8 @@ import com.hesshes.boardback.entity.BoardListViewEntity;
 public interface BoardListViewRepository extends JpaRepository<BoardListViewEntity, Integer> {
 
     List<BoardListViewEntity> findByOrderByWrtDttmDesc();
+
+    List<BoardListViewEntity> findTop3ByWrtDttmGreaterThanOrderByFavoriteCntDescCommentCntDescViewCntDescWrtDttmDesc(
+            String wrtDttm);
+
 }

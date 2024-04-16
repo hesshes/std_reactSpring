@@ -18,6 +18,7 @@ import com.hesshes.boardback.dto.request.board.PostCommentRequestDto;
 import com.hesshes.boardback.dto.response.board.GetBoardResponseDto;
 import com.hesshes.boardback.dto.response.board.GetCommentListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetFavoriteListResponseDto;
+import com.hesshes.boardback.dto.response.board.GetTop3BoardListResponseDto;
 import com.hesshes.boardback.dto.response.board.GetLatestBoardListResponseDto;
 
 import com.hesshes.boardback.dto.response.board.PostBoardResponseDto;
@@ -81,6 +82,12 @@ public class BoardController {
         ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
         return response;
 
+    }
+
+    @GetMapping("/top-3")
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList(){
+        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
+        return response;
     }
 
     @PostMapping("")
