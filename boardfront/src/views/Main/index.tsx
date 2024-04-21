@@ -53,7 +53,7 @@ export default function Main() {
         // render : 메인 화면 하단 컴포넌트 //
         return (
             <div id="main-bottom-wrapper">
-                <div className="main-container">
+                <div className="main-bottom-container">
                     <div className="main-bottom-title">{"최신게시물"}</div>
                     <div className="main-bottom-contents-box">
                         <div className="main-bottom-current-contents">
